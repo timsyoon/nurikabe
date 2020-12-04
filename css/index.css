@@ -1,0 +1,20 @@
+table, td {
+    border: 1px solid black;
+}
+table {
+    table-layout: fixed;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+td {
+    width: 3.5em;
+    height: 3.5em;
+}
+h1 {
+    text-align: center;
+}
+p {
+    text-align: center;
+    margin-bottom: 2em;
+}
