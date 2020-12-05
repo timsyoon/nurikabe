@@ -1,4 +1,14 @@
+function toggleShade(cell) {
+    if (cell.style.backgroundColor === "" || cell.style.backgroundColor === "white") {
+        cell.style.backgroundColor = "black";
+    }
+    else {
+        cell.style.backgroundColor = "white";
+    }
+}
+
 // Hard code a single 5x5 grid
+// "w" represents a white square and "b" represents a black square
 let grid = [
     [3, "w", "w", "w", "w"],
     ["w", "w", 2, "w", 2],
@@ -19,6 +29,12 @@ for (let i = 0; i < grid.length; i++) {
         // If the grid element contains a number, have the table cell display the number
         if (typeof grid[i][j] === "number") {
             cell.innerText = grid[i][j].toString();
+        }
+        // If the grid element contains "w" or "b", the table cell should be clickable
+        if (grid[i][j] === "w" || grid[i][j] === "b") {
+            cell.addEventListener("click", function() {
+                toggleShade(cell);
+            });
         }
         row.appendChild(cell);
     }
