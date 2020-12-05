@@ -1,9 +1,12 @@
-function toggleShade(cell) {
+// Toggle the color of a table cell when clicked, and update the underlying grid
+function toggleShade(cell, grid_row, grid_col) {
     if (cell.style.backgroundColor === "" || cell.style.backgroundColor === "white") {
         cell.style.backgroundColor = "black";
+        grid[grid_row][grid_col] = "b"
     }
     else {
         cell.style.backgroundColor = "white";
+        grid[grid_row][grid_col] = "w"
     }
 }
 
@@ -33,7 +36,7 @@ for (let i = 0; i < grid.length; i++) {
         // If the grid element contains "w" or "b", the table cell should be clickable
         if (grid[i][j] === "w" || grid[i][j] === "b") {
             cell.addEventListener("click", function() {
-                toggleShade(cell);
+                toggleShade(cell, i, j);
             });
         }
         row.appendChild(cell);
