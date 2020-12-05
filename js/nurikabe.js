@@ -1,3 +1,16 @@
+class Vertex {
+    constructor(row_index, col_index, color) {
+        this.row_index = row_index;
+        this.col_index = col_index;
+        this.color = color;
+        this.number = undefined;  // For numbered white squares
+        // For the breadth-first search algorithm
+        this.status = undefined;
+        this.distance = undefined;
+        this.predecessor = undefined;
+    }
+}
+
 // Toggle the color of a table cell when clicked, and update the underlying grid
 function toggleShade(cell, grid_row, grid_col) {
     if (cell.style.backgroundColor === "" || cell.style.backgroundColor === "white") {
@@ -64,4 +77,3 @@ document.body.appendChild(wrapper_submit_btn);
 submit_btn.addEventListener("click", function() {
     verifyPlayerSolution(grid);
 });
-
