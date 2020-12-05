@@ -10,7 +10,12 @@ function toggleShade(cell, grid_row, grid_col) {
     }
 }
 
-// Hard code a single 5x5 grid
+// Check whether the player's submitted solution is correct
+function verifyPlayerSolution(grid) {
+
+}
+
+// Hard code a single 5x5 grid (courtesy of Puzzle #8,861,309 from https://www.puzzle-nurikabe.com/)
 // "w" represents a white square and "b" represents a black square
 let grid = [
     [3, "w", "w", "w", "w"],
@@ -45,3 +50,18 @@ for (let i = 0; i < grid.length; i++) {
 }
 table.appendChild(table_body);
 document.body.appendChild(table);
+
+// Add a submit button to the page
+let submit_btn = document.createElement("button");
+let wrapper_submit_btn = document.createElement("div");
+submit_btn.innerText = "Submit";
+submit_btn.id = "submit-btn";
+wrapper_submit_btn.classList.add("text-center");
+wrapper_submit_btn.id = "wrapper-submit-btn";
+wrapper_submit_btn.appendChild(submit_btn);
+document.body.appendChild(wrapper_submit_btn);
+
+submit_btn.addEventListener("click", function() {
+    verifyPlayerSolution(grid);
+});
+
