@@ -1,9 +1,9 @@
 class Vertex {
-    constructor(row_index, col_index, color) {
+    constructor(row_index, col_index, color, number = undefined) {
         this.row_index = row_index;
         this.col_index = col_index;
         this.color = color;
-        this.number = undefined;  // For numbered white squares
+        this.number = number;  // For numbered white squares
         // For the breadth-first search algorithm
         this.status = undefined;
         this.distance = undefined;
@@ -29,7 +29,6 @@ function verifyPlayerSolution(grid) {
 }
 
 // Hard code a single 5x5 grid (courtesy of Puzzle #8,861,309 from https://www.puzzle-nurikabe.com/)
-// "w" represents a white square and "b" represents a black square
 let grid = [
     [3, "w", "w", "w", "w"],
     ["w", "w", 2, "w", 2],
