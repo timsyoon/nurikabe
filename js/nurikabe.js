@@ -1,5 +1,5 @@
 class Vertex {
-    constructor(row_index, col_index, color, number = undefined) {
+    constructor(row_index, col_index, color = "white", number = undefined) {
         this.row_index = row_index;
         this.col_index = col_index;
         this.color = color;
@@ -30,11 +30,11 @@ function verifyPlayerSolution(grid) {
 
 // Hard code a single 5x5 grid (courtesy of Puzzle #8,861,309 from https://www.puzzle-nurikabe.com/)
 let grid = [
-    [3, "w", "w", "w", "w"],
-    ["w", "w", 2, "w", 2],
-    ["w", "w", "w", "w", "w"],
-    ["w", "w", 1, "w", 1],
-    [2, "w", "w", "w", "w"]
+    [new Vertex(0, 0, 3), new Vertex(0, 1), new Vertex(0, 2), new Vertex(0, 3), new Vertex(0, 4)],
+    [new Vertex(1, 0), new Vertex(1, 1), new Vertex(1, 2, 2), new Vertex(1, 3), new Vertex(1, 4, 2)],
+    [new Vertex(2, 0), new Vertex(2, 1), new Vertex(2, 2), new Vertex(2, 3), new Vertex(2, 4)],
+    [new Vertex(3, 0), new Vertex(3, 1), new Vertex(3, 2, 1), new Vertex(3, 3), new Vertex(3, 4, 1)],
+    [new Vertex(4, 0, 2), new Vertex(4, 1), new Vertex(4, 2), new Vertex(4, 3), new Vertex(4, 4)]
 ];
 
 // Translate the grid to a table
