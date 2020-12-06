@@ -69,7 +69,44 @@ function exploreIsland(grid, curr_numbered_square) {
         }
     }
     curr_numbered_square.status = "frontier";
-    // TODO: finish
+    curr_numbered_square.distance = 0;
+    curr_numbered_square.predecessor = undefined;
+    white_square_count = 1;  // Include the numbered square in the count
+    let queue = [];
+    queue.push(curr_numbered_square);  // Enqueue
+    while (queue.length !== 0) {
+        let curr_vertex = queue.shift();  // Dequeue
+        let adjacent_vertices = get_adjacent_vertices(grid, curr_vertex.row_index, curr_vertex.col_index);
+    }
+}
+
+/*
+Return a list of all the Vertex objects that are adjacent to the Vertex
+at the given row and column indices
+*/
+function get_adjacent_vertices(grid, row_index, col_index) {
+    let adjacent_vertices = [];
+    let lowest_row_index = 0;
+    let highest_row_index = grid.length - 1;
+    let lowest_col_index = 0;
+    let highest_col_index = grid[0].length - 1;
+    // Check north position
+    if (row_index - 1 >= lowest_row_index) {
+        adjacent_vertices.push(grid[row_index - 1][col_index]);
+    }
+    // Check south position
+    if (row_index + 1 <= highest_row_index) {
+        adjacent_vertices.push(grid[row_index + 1][col_index]);
+    }
+    // Check east position
+    if (col_index + 1 <= highest_col_index) {
+        adjacent_vertices.push(grid[row_index][col_index + 1]);
+    }
+    // Check west position
+    if (col_index - 1 >= lowest_col_index) {
+        adjacent_vertices.push(grid[row_index][col_index - 1]);
+    }
+    return adjacent_vertices;
 }
 
 /*
