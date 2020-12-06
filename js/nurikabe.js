@@ -4,6 +4,12 @@ Sources:
 */
 
 class Vertex {
+    /*
+    Template used when creating a new Vertex object.
+    :param row_index: The row index of the Vertex
+    :param col_index: The column index of the Vertex
+    :param number: (optional) The number in a numbered white square
+    */
     constructor(row_index, col_index, number = undefined) {
         this.row_index = row_index;
         this.col_index = col_index;
@@ -16,7 +22,12 @@ class Vertex {
     }
 }
 
-// Toggle the color of a table cell when clicked, and update the underlying grid
+/*
+Toggle the color of a table cell when clicked, and update the underlying grid.
+:param cell: The HTML "td" element to toggle the color on
+:param grid_row: The grid row index corresponding to the cell's location
+:param grid_col: The grid column index corresponding to the cell's location
+*/
 function toggleShade(cell, grid_row, grid_col) {
     if (cell.style.backgroundColor === "" || cell.style.backgroundColor === "white") {
         cell.style.backgroundColor = "black";
@@ -28,7 +39,11 @@ function toggleShade(cell, grid_row, grid_col) {
     }
 }
 
-// Find every numbered square in the grid
+/*
+Find every numbered square in the grid.
+:param grid: The 2D array of Vertex objects to search
+:return numbered_squares: An array of Vertex objects that represent numbered squares
+*/
 function findNumberedSquares(grid) {
     let numbered_squares = [];
     for (i = 0; i < grid.length; i++) {
@@ -41,7 +56,12 @@ function findNumberedSquares(grid) {
     return numbered_squares;
 }
 
-// Check whether the islands of white squares in the grid are correct
+/*
+Check whether the islands of white squares in the grid are correct.
+:param grid: A 2D array of Vertex objects
+:param numbered_squares: An array of Vertex objects that represent numbered squares
+:return: true if all islands in the grid are correctly formed, and false otherwise
+*/
 function check_islands(grid, numbered_squares) {
     for (i = 0; i < numbered_squares.length; i++) {
         curr_numbered_square = numbered_squares[i];
@@ -52,6 +72,11 @@ function check_islands(grid, numbered_squares) {
 
 /*
 Perform a modified breadth-first search starting from the source Vertex passed in.
+:param grid: The 2D array of Vertex objects that contains the block of squares to explore
+:param source_vertex: The Vertex to begin the search at
+:param block_color: The color of the squares that should be discovered
+:return block_size: The number of squares in the final block of discovered squares
+
 Key terms:
   a) "undiscovered": refers to squares that have not yet been encountered
   b) "frontier": refers to squares that represent the frontier between discovered
@@ -93,7 +118,11 @@ function exploreBlock(grid, source_vertex, block_color) {
 }
 
 /*
-Return a list of all the Vertex objects that are adjacent to the Vertex
+Get all Vertex objects that are adjacent to a given location in the grid.
+:param grid: The 2D array of Vertex objects
+:param row_index: The grid row index of the Vertex whose neighbors should be found
+:param col_index: The grid column index of the Vertex whose neighbors should be found
+:return adjacent_vertices: An array of all Vertex objects that are adjacent to the Vertex
 at the given row and column indices
 */
 function get_adjacent_vertices(grid, row_index, col_index) {
@@ -122,9 +151,10 @@ function get_adjacent_vertices(grid, row_index, col_index) {
 }
 
 /*
-Check whether the player's submitted solution is correct. Return true if correct
-and false otherwise. This function is based on the breadth-first search procedure
-given on p. 595 of the CLRS textbook [1].
+Check whether the player's submitted solution is correct. This function is based on
+the breadth-first search procedure given on p. 595 of the CLRS textbook [1].
+:param grid: The 2D array of Vertex objects that contains the player's solution
+:return: true if the player's solution is correct and false otherwise
 */
 function verifyPlayerSolution(grid) {
     let numbered_squares = findNumberedSquares(grid);
