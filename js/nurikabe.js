@@ -45,20 +45,20 @@ function findNumberedSquares(grid) {
 function check_islands(grid, numbered_squares) {
     for (i = 0; i < numbered_squares.length; i++) {
         curr_numbered_square = numbered_squares[i];
-        let curr_island_size = exploreIsland(grid, curr_numbered_square);
+        let curr_island_size = exploreBlock(grid, curr_numbered_square, "white");
         // TODO: finish
     }
 }
 
 /*
-Perform a modified breadth-first search starting from the numbered square passed in.
+Perform a modified breadth-first search starting from the source Vertex passed in.
 Key terms:
   a) "undiscovered": refers to squares that have not yet been encountered
   b) "frontier": refers to squares that represent the frontier between discovered
      and undiscovered squares
   c) "discovered": refers to squares that have been encountered
 */
-function exploreIsland(grid, curr_numbered_square) {
+function exploreBlock(grid, source_vertex, block_color) {
     // Set every Vertex in the grid as undiscovered 
     for (i = 0; i < grid.length; i++) {
         for (j = 0; j < grid[0].length; j++) {
@@ -68,16 +68,28 @@ function exploreIsland(grid, curr_numbered_square) {
             curr_vertex.predecessor = undefined;
         }
     }
-    curr_numbered_square.status = "frontier";
-    curr_numbered_square.distance = 0;
-    curr_numbered_square.predecessor = undefined;
-    white_square_count = 1;  // Include the numbered square in the count
+    source_vertex.status = "frontier";
+    source_vertex.distance = 0;
+    source_vertex.predecessor = undefined;
+    block_size = 1;  // Include the source Vertex
     let queue = [];
-    queue.push(curr_numbered_square);  // Enqueue
+    queue.push(source_vertex);  // Enqueue
     while (queue.length !== 0) {
         let curr_vertex = queue.shift();  // Dequeue
         let adjacent_vertices = get_adjacent_vertices(grid, curr_vertex.row_index, curr_vertex.col_index);
+        for (i = 0; i < adjacent_vertices.length; i++) {
+            let adjacent_vertex = adjacent_vertices[i];
+            if (adjacent_vertex.status === "undiscovered" && adjacent_vertex.color === block_color) {
+                block_size++;
+                adjacent_vertex.status = "frontier";
+                adjacent_vertex.distance = curr_vertex.distance + 1;
+                adjacent_vertex.predecessor = curr_vertex;
+                queue.push(adjacent_vertex);
+            }
+        }
+        curr_vertex.status = "discovered";
     }
+    return block_size;
 }
 
 /*
