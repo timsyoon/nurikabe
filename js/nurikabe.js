@@ -1,3 +1,8 @@
+/*
+Sources:
+[1] Introduction to Algorithms, by Thomas H. Cormen et al., Third ed., The MIT Press, 2009, pp. 594–597. 
+*/
+
 class Vertex {
     constructor(row_index, col_index, number = undefined) {
         this.row_index = row_index;
@@ -23,9 +28,61 @@ function toggleShade(cell, grid_row, grid_col) {
     }
 }
 
-// Check whether the player's submitted solution is correct
-function verifyPlayerSolution(grid) {
+// Find every numbered square in the grid
+function findNumberedSquares(grid) {
+    let numbered_squares = [];
+    for (i = 0; i < grid.length; i++) {
+        for (j = 0; j < grid[0].length; j++) {
+            if (grid[i][j].number !== undefined) {
+                numbered_squares.push(grid[i][j]);  // Add the Vertex object
+            }
+        }
+    }
+    return numbered_squares;
+}
 
+// Check whether the islands of white squares in the grid are correct
+function check_islands(grid, numbered_squares) {
+    for (i = 0; i < numbered_squares.length; i++) {
+        curr_numbered_square = numbered_squares[i];
+        let curr_island_size = exploreIsland(grid, curr_numbered_square);
+        // TODO: finish
+    }
+}
+
+/*
+Perform a modified breadth-first search starting from the numbered square passed in.
+Key terms:
+  a) "undiscovered": refers to squares that have not yet been encountered
+  b) "frontier": refers to squares that represent the frontier between discovered
+     and undiscovered squares
+  c) "discovered": refers to squares that have been encountered
+*/
+function exploreIsland(grid, curr_numbered_square) {
+    // Set every Vertex in the grid as undiscovered 
+    for (i = 0; i < grid.length; i++) {
+        for (j = 0; j < grid[0].length; j++) {
+            let curr_vertex = grid[i][j];
+            curr_vertex.status = "undiscovered";
+            curr_vertex.distance = Infinity;
+            curr_vertex.predecessor = undefined;
+        }
+    }
+    curr_numbered_square.status = "frontier";
+    // TODO: finish
+}
+
+/*
+Check whether the player's submitted solution is correct. Return true if correct
+and false otherwise. This function is based on the breadth-first search procedure
+given on p. 595 of the CLRS textbook [1].
+*/
+function verifyPlayerSolution(grid) {
+    let numbered_squares = findNumberedSquares(grid);
+    let are_islands_correct = check_islands(grid, numbered_squares);
+    if (are_islands_correct === false) {
+        return false;
+    }
 }
 
 // Hard code a single 5x5 grid (courtesy of Puzzle #8,861,309 from https://www.puzzle-nurikabe.com/)
