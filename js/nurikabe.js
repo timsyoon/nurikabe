@@ -1,8 +1,8 @@
 class Vertex {
-    constructor(row_index, col_index, color = "white", number = undefined) {
+    constructor(row_index, col_index, number = undefined) {
         this.row_index = row_index;
         this.col_index = col_index;
-        this.color = color;
+        this.color = "white";
         this.number = number;  // For numbered white squares
         // For the breadth-first search algorithm
         this.status = undefined;
@@ -15,11 +15,11 @@ class Vertex {
 function toggleShade(cell, grid_row, grid_col) {
     if (cell.style.backgroundColor === "" || cell.style.backgroundColor === "white") {
         cell.style.backgroundColor = "black";
-        grid[grid_row][grid_col] = "b"
+        grid[grid_row][grid_col].color = "black";
     }
     else {
         cell.style.backgroundColor = "white";
-        grid[grid_row][grid_col] = "w"
+        grid[grid_row][grid_col].color = "white";
     }
 }
 
@@ -45,13 +45,13 @@ for (let i = 0; i < grid.length; i++) {
     let row = document.createElement("tr");
     for (let j = 0; j < grid[0].length; j++) {
         let cell = document.createElement("td");
-        cell.id = i.toString() + j.toString();  // table cell ID = "{grid row}{grid column}"
-        // If the grid element contains a number, have the table cell display the number
-        if (typeof grid[i][j] === "number") {
-            cell.innerText = grid[i][j].toString();
+        cell.id = i.toString() + "," + j.toString();  // table cell ID = "{row index},{column index}"
+        // If the grid Vertex represents a numbered square, display the number on the table
+        if (grid[i][j].number !== undefined) {
+            cell.innerText = grid[i][j].number.toString();
         }
-        // If the grid element contains "w" or "b", the table cell should be clickable
-        if (grid[i][j] === "w" || grid[i][j] === "b") {
+        // Enable unnumbered table cells to change color when clicked
+        if (grid[i][j].number === undefined) {
             cell.addEventListener("click", function() {
                 toggleShade(cell, i, j);
             });
