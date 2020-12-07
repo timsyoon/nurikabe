@@ -46,8 +46,8 @@ Find every numbered square in the grid.
 */
 function findNumberedSquares(grid) {
     let numbered_squares = [];
-    for (i = 0; i < grid.length; i++) {
-        for (j = 0; j < grid[0].length; j++) {
+    for (let i = 0; i < grid.length; i++) {
+        for (let j = 0; j < grid[0].length; j++) {
             if (grid[i][j].number !== undefined) {
                 numbered_squares.push(grid[i][j]);  // Add the Vertex object
             }
@@ -63,11 +63,16 @@ Check whether the islands of white squares in the grid are correct.
 :return: true if all islands in the grid are correctly formed, and false otherwise
 */
 function check_islands(grid, numbered_squares) {
-    for (i = 0; i < numbered_squares.length; i++) {
+    for (let i = 0; i < numbered_squares.length; i++) {
         curr_numbered_square = numbered_squares[i];
         let curr_island_size = exploreBlock(grid, curr_numbered_square, "white");
-        // TODO: finish
+        // console.log("curr_numbered_square:", curr_numbered_square);
+        // console.log("curr_island_size:", curr_island_size);
+        if (curr_island_size !== curr_numbered_square.number) {
+            return false;
+        }
     }
+    return true;
 }
 
 /*
@@ -85,8 +90,8 @@ Key terms:
 */
 function exploreBlock(grid, source_vertex, block_color) {
     // Set every Vertex in the grid as undiscovered 
-    for (i = 0; i < grid.length; i++) {
-        for (j = 0; j < grid[0].length; j++) {
+    for (let i = 0; i < grid.length; i++) {
+        for (let j = 0; j < grid[0].length; j++) {
             let curr_vertex = grid[i][j];
             curr_vertex.status = "undiscovered";
             curr_vertex.distance = Infinity;
@@ -102,9 +107,11 @@ function exploreBlock(grid, source_vertex, block_color) {
     while (queue.length !== 0) {
         let curr_vertex = queue.shift();  // Dequeue
         let adjacent_vertices = get_adjacent_vertices(grid, curr_vertex.row_index, curr_vertex.col_index);
-        for (i = 0; i < adjacent_vertices.length; i++) {
+        for (let i = 0; i < adjacent_vertices.length; i++) {
             let adjacent_vertex = adjacent_vertices[i];
-            if (adjacent_vertex.status === "undiscovered" && adjacent_vertex.color === block_color) {
+            if (adjacent_vertex.status === "undiscovered" &&
+            adjacent_vertex.color === block_color &&
+            adjacent_vertex.number === undefined) {
                 block_size++;
                 adjacent_vertex.status = "frontier";
                 adjacent_vertex.distance = curr_vertex.distance + 1;
@@ -151,16 +158,21 @@ function get_adjacent_vertices(grid, row_index, col_index) {
 }
 
 /*
-Check whether the player's submitted solution is correct. This function is based on
-the breadth-first search procedure given on p. 595 of the CLRS textbook [1].
+Check whether the player's submitted solution is correct. Then give feedback
+to the player accordingly. This function is based on the breadth-first search
+procedure given on p. 595 of the CLRS textbook [1].
 :param grid: The 2D array of Vertex objects that contains the player's solution
-:return: true if the player's solution is correct and false otherwise
 */
 function verifyPlayerSolution(grid) {
+    let feedback_area = document.getElementById("feedback");
     let numbered_squares = findNumberedSquares(grid);
     let are_islands_correct = check_islands(grid, numbered_squares);
     if (are_islands_correct === false) {
-        return false;
+        feedback_area.innerText = "One or more of the islands are incorrectly formed.";
+    }
+    // TODO
+    else {
+        feedback_area.innerText = "Your solution is correct. Good job!";
     }
 }
 
