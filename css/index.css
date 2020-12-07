@@ -8,15 +8,21 @@ table {
     text-align: center;
 }
 td {
-    width: 3.5em;
-    height: 3.5em;
+    width: 3em;
+    height: 3em;
+    padding: 0;
+    font-size: 1.2em;
 }
 p {
-    margin-bottom: 4em;
+    margin-bottom: 1.5em;
 }
 .text-center {
     text-align: center;
 }
 #wrapper-submit-btn {
     margin-top: 1.5em;
+}
+#feedback {
+    text-align: center;
+    height: 0.5em;
 }
