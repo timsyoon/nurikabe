@@ -8,6 +8,12 @@ Nurikabe is played on a rectangular grid of white squares, some of which contain
 * There cannot be any 2 x 2 blocks of shaded or unshaded squares.
 * All shaded squares must eventually be connected (forming a "sea").
 
+## How to Play
+1. Go to [http://timothyyoon.com/nurikabe/](http://timothyyoon.com/nurikabe/) for the puzzle.
+2. Click on individual squares in the grid to shade or unshade them.
+3. Once you are done, click on the "Submit" button to check your solution.
+4. See the displayed feedback. You can modify your solution and resubmit as many times as you need.
+
 ## References
 <a id="1">1.</a>
 “Nurikabe.” Wikipedia, Wikimedia Foundation, 4 Aug. 2020, en.wikipedia.org/wiki/Nurikabe.
