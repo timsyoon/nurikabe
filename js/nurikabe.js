@@ -191,6 +191,20 @@ function check_black_squares(grid) {
 }
 
 /*
+Check whether any 2x2 shaded or unshaded blocks exist in the grid.
+:param grid: The 2D array of Vertex objects
+:return: true if there exists a 2x2 block and false otherwise
+*/
+function check_for_two_by_twos(grid) {
+    // Check if the grid is smaller than 2x2
+    if (grid.length < 2 || grid[0].length < 2) {
+        return false;
+    }
+    // Check every 2x2 block in the grid
+    // TODO
+}
+
+/*
 Check whether the player's submitted solution is correct. Then give feedback
 to the player accordingly. This function is based on the breadth-first search
 procedure given on p. 595 of the CLRS textbook [1].
@@ -210,6 +224,11 @@ function verifyPlayerSolution(grid) {
     if (are_black_squares_connected === false) {
         feedback_area.innerText = "Not all of the black squares are connected.";
         return;
+    }
+    // Verify that no 2x2 blocks of shaded or unshaded squares exist
+    let do_two_by_twos_exist = check_for_two_by_twos(grid);
+    if (do_two_by_twos_exist === true) {
+        feedback_area.innerText = "A 2x2 block exists.";
     }
     // TODO
     feedback_area.innerText = "Your solution is correct. Good job!";
