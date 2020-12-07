@@ -196,12 +196,26 @@ Check whether any 2x2 shaded or unshaded blocks exist in the grid.
 :return: true if there exists a 2x2 block and false otherwise
 */
 function check_for_two_by_twos(grid) {
-    // Check if the grid is smaller than 2x2
+    /* If either the length or width of the grid has less than 2 squares,
+    then a 2x2 block cannot exist in the grid. */
     if (grid.length < 2 || grid[0].length < 2) {
         return false;
     }
     // Check every 2x2 block in the grid
-    // TODO
+    for (let i = 0; i < grid.length - 1; i++) {
+        for (let j = 0; j < grid[0].length - 1; j++) {
+            /* Starting from the upper left corner Vertex of a 2x2 block,
+            check if every Vertex in the block has the same color. */
+            let northwest_corner = grid[i][j];
+            let northwest_color = grid[i][j].color;
+            if (grid[i][j + 1].color === northwest_color &&      // Northeast corner
+                grid[i + 1][j].color === northwest_color &&      // Southwest corner
+                grid[i + 1][j + 1].color === northwest_color) {  // Southeast corner
+                    return true;
+                }
+        }
+    }
+    return false;
 }
 
 /*
@@ -209,6 +223,7 @@ Check whether the player's submitted solution is correct. Then give feedback
 to the player accordingly. This function is based on the breadth-first search
 procedure given on p. 595 of the CLRS textbook [1].
 :param grid: The 2D array of Vertex objects that contains the player's solution
+:return: true if the player's solution is correct and false otherwise
 */
 function verifyPlayerSolution(grid) {
     let feedback_area = document.getElementById("feedback");
@@ -217,21 +232,22 @@ function verifyPlayerSolution(grid) {
     let are_islands_correct = check_islands(grid, numbered_squares);
     if (are_islands_correct === false) {
         feedback_area.innerText = "One or more of the islands are incorrectly formed.";
-        return;
+        return false;
     }
     // Verify that all black squares are connected to one another
     let are_black_squares_connected = check_black_squares(grid);
     if (are_black_squares_connected === false) {
         feedback_area.innerText = "Not all of the black squares are connected.";
-        return;
+        return false;
     }
     // Verify that no 2x2 blocks of shaded or unshaded squares exist
     let do_two_by_twos_exist = check_for_two_by_twos(grid);
     if (do_two_by_twos_exist === true) {
         feedback_area.innerText = "A 2x2 block exists.";
+        return false;
     }
-    // TODO
     feedback_area.innerText = "Your solution is correct. Good job!";
+    return true;
 }
 
 // Hard code a single 5x5 grid (courtesy of Puzzle #8,861,309 from https://www.puzzle-nurikabe.com/)
