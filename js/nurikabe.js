@@ -158,6 +158,39 @@ function get_adjacent_vertices(grid, row_index, col_index) {
 }
 
 /*
+Check whether all black squares in the grid are connected to one another
+:param grid: The 2D array of Vertex objects
+:return: true if all black squares are connected and false otherwise
+*/
+function check_black_squares(grid) {
+    // Count the total number of black squares in the grid and find the
+    // first black square
+    let black_square_count = 0;
+    let first_black_square = undefined;
+    for (let i = 0; i < grid.length; i++) {
+        for (let j = 0; j < grid[0].length; j++) {
+            if (black_square_count === 0 && grid[i][j].color === "black") {
+                black_square_count++;
+                first_black_square = grid[i][j];
+            }
+            else if (grid[i][j].color === "black") {
+                black_square_count++;
+            }
+        }
+    }
+    if (black_square_count === 0) {
+        return false;
+    }
+    // Explore the block (or "sea") of black squares beginning at the first
+    // black square found
+    let black_sea_size = exploreBlock(grid, first_black_square, "black");
+    if (black_sea_size !== black_square_count) {
+        return false;
+    }
+    return true;
+}
+
+/*
 Check whether the player's submitted solution is correct. Then give feedback
 to the player accordingly. This function is based on the breadth-first search
 procedure given on p. 595 of the CLRS textbook [1].
@@ -165,15 +198,21 @@ procedure given on p. 595 of the CLRS textbook [1].
 */
 function verifyPlayerSolution(grid) {
     let feedback_area = document.getElementById("feedback");
+    // Verify that all islands have the correct number of white squares
     let numbered_squares = findNumberedSquares(grid);
     let are_islands_correct = check_islands(grid, numbered_squares);
     if (are_islands_correct === false) {
         feedback_area.innerText = "One or more of the islands are incorrectly formed.";
+        return;
+    }
+    // Verify that all black squares are connected to one another
+    let are_black_squares_connected = check_black_squares(grid);
+    if (are_black_squares_connected === false) {
+        feedback_area.innerText = "Not all of the black squares are connected.";
+        return;
     }
     // TODO
-    else {
-        feedback_area.innerText = "Your solution is correct. Good job!";
-    }
+    feedback_area.innerText = "Your solution is correct. Good job!";
 }
 
 // Hard code a single 5x5 grid (courtesy of Puzzle #8,861,309 from https://www.puzzle-nurikabe.com/)
