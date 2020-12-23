@@ -29,6 +29,11 @@ p {
 #wrapper-submit-btn {
     margin-top: 1.5em;
 }
+#submit-btn {
+    font-size: 1em;
+    height: 2em;
+    width: 4.5em;
+}
 #feedback {
     text-align: center;
     height: 0.5em;
