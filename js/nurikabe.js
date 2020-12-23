@@ -274,8 +274,13 @@ for (let i = 0; i < grid.length; i++) {
         }
         // Enable unnumbered table cells to change color when clicked
         if (grid[i][j].number === undefined) {
-            cell.addEventListener("click", function() {
+            cell.addEventListener("mousedown", function() {
                 toggleShade(cell, i, j);
+            });
+            cell.addEventListener("mouseover", function(event) {
+                if (event.buttons === 1) {
+                    toggleShade(cell, i, j);
+                }
             });
         }
         row.appendChild(cell);
