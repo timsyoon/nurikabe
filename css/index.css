@@ -1,11 +1,18 @@
+body {
+    background-color: #fff5ee;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
 table, td {
-    border: 1px solid black;
+    border: 1px solid #b6b6b6;
+    background-color: white;
 }
 table {
     table-layout: fixed;
     margin-left: auto;
     margin-right: auto;
     text-align: center;
+    border-collapse: collapse;
 }
 td {
     width: 3em;
