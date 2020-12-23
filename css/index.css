@@ -3,6 +3,10 @@ body {
     font-family: "Segoe UI", Arial, sans-serif;
 }
 
+h1 {
+    font-weight: lighter;
+}
+
 table, td {
     border: 1px solid #b6b6b6;
     background-color: white;
@@ -30,6 +34,7 @@ p {
     margin-top: 1.5em;
 }
 #submit-btn {
+    font-family: "Segoe UI", Arial, sans-serif;
     font-size: 1em;
     height: 2em;
     width: 4.5em;
