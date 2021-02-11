@@ -1,5 +1,7 @@
 # nurikabe
 
+![GIF of Nurikabe playthrough](assets/nurikabe-playthrough.gif)
+
 Nurikabe is a logic puzzle named after the nurikabe, a spirit from Japanese folklore that is "said to manifest as an invisible wall that impedes or misdirects travelers walking at night". [<sup>1</sup>](#1) The puzzle was first published by [*Nikoli*](https://en.wikipedia.org/wiki/Nikoli_(publisher)) in 1991.
 
 ## Rules <sup>[2](#2)</sup>
